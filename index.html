@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convite Especial</title>
+<style>
+    body{
+        font-family: Arial, sans-serif;
+        text-align:center;
+        background:#ffe6f2;
+        margin-top:100px;
+    }
+
+    h1{
+        color:#d63384;
+    }
+
+    button{
+        padding:15px 30px;
+        font-size:18px;
+        border:none;
+        border-radius:10px;
+        cursor:pointer;
+        position:absolute;
+    }
+
+    #sim{
+        background:#28a745;
+        color:white;
+        left:45%;
+        top:250px;
+    }
+
+    #nao{
+        background:#dc3545;
+        color:white;
+        left:55%;
+        top:250px;
+    }
+</style>
+</head>
+<body>
+
+<h1>💖 Quer sair comigo neste fim de semana? 💖</h1>
+
+<button id="sim" onclick="aceitou()">Sim ❤️</button>
+<button id="nao">Não 😅</button>
+
+<script>
+// Obtenha sua apikey em https://www.callmebot.com/blog/free-api-whatsapp-messages/
+// Envie no WhatsApp para +34 684 73 69 67: "I allow callmebot to send me messages"
+const WHATSAPP_NUMERO = "557591628879";
+const CALLMEBOT_API_KEY = "COLOQUE_SUA_APIKEY_AQUI";
+
+async function aceitou(){
+    const mensagem = "💖 Alguém aceitou seu convite para sair no fim de semana!";
+
+    if (CALLMEBOT_API_KEY && CALLMEBOT_API_KEY !== "COLOQUE_SUA_APIKEY_AQUI") {
+        try {
+            await fetch(
+                "https://api.callmebot.com/whatsapp.php?phone=" +
+                WHATSAPP_NUMERO +
+                "&text=" + encodeURIComponent(mensagem) +
+                "&apikey=" + encodeURIComponent(CALLMEBOT_API_KEY)
+            );
+        } catch (e) {
+            console.error("Erro ao enviar WhatsApp:", e);
+        }
+    }
+
+    document.body.innerHTML =
+        "<h1>🥰 Perfeito! Vou te chamar para combinarmos os detalhes!</h1>";
+
+    window.open(
+        "https://wa.me/" + WHATSAPP_NUMERO +
+        "?text=" + encodeURIComponent("Sim! Aceitei seu convite! ❤️"),
+        "_blank"
+    );
+}
+
+const nao = document.getElementById("nao");
+
+nao.addEventListener("mouseover", () => {
+    const largura = window.innerWidth - 120;
+    const altura = window.innerHeight - 60;
+
+    nao.style.left = Math.random() * largura + "px";
+    nao.style.top = Math.random() * altura + "px";
+});
+</script>
+
+</body>
+</html>
